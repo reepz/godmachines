@@ -1,7 +1,10 @@
-Windows desktop installer
+#Windows desktop installer
 
-Written in Electron
 
-### installation
+
+# Installation
 1. yarn
 2. yarn start
+
+
+####Written in Electron
