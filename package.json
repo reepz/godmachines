@@ -1,0 +1,14 @@
+{
+  "name": "godmachines",
+  "version": "1.0.0",
+  "description": "desktop installer",
+  "main": "main.js",
+  "author": "AndrzejW",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^17.1.0"
+  }
+}
