@@ -1,4 +1,4 @@
-#Windows desktop installer
+# Windows desktop installer
 
 
 
@@ -7,4 +7,4 @@
 2. yarn start
 
 
-Written in Electron
+#### Written in Electron
