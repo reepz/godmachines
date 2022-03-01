@@ -11,13 +11,31 @@
       http-equiv="X-Content-Security-Policy"
       content="default-src 'self'; script-src 'self'"
     />
+    <link rel="stylesheet" href="app.css" />
     <title>God Machines installer</title>
   </head>
   <body>
-    <h1>Hello World!</h1>
-    We are using Node.js <span id="node-version"></span>, Chromium
-    <span id="chrome-version"></span>, and Electron
-    <span id="electron-version"></span>.
+    <h1>God Machines</h1>
+    <img src="godmachines-small.png" alt="" />
+
+    <div>
+      <p class="meta-data">Build: <span id="build-number"></span></p>
+    </div>
+
+    <div>
+      <p class="meta-data">Last commit: <span id="last-commit"></span></p>
+    </div>
+
+    <div>
+      <p class="meta-data">Build date: <span id="build-date"></span></p>
+    </div>
+
+    <div>
+      <p class="meta-data">
+        Installation folder: <span id="installation-folder"></span>
+      </p>
+    </div>
+
     <button id="install-button">Install</button>
     <script src="./renderer.js"></script>
   </body>

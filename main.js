@@ -7,6 +7,13 @@ const AdmZip = require('adm-zip');
 const createDesktopShortcut = require('create-desktop-shortcuts');
 
 async function getDataFromUnity() {
+  let metaData = {
+    buildNumber: '',
+    commitMsg: '',
+    buildDate: '',
+    installationPath: '',
+  };
+
   const dir = `${__dirname}/files`;
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir);
@@ -22,8 +29,10 @@ async function getDataFromUnity() {
   );
 
   // console.log(request.data[0]);
-  // console.log(request.data[1]);
-  // console.log(request.data[0].platform);
+  metaData.commitMsg = request.data[0].changeset[0].message;
+  metaData.buildDate = request.data[0].changeset[0].timestamp;
+  metaData.buildNumber = request.data[0].build;
+  metaData.installationPath = `${__dirname}\\extracted`;
 
   const url = request.data[0].links.download_primary.href;
 
@@ -36,8 +45,6 @@ async function getDataFromUnity() {
       console.log('Download Completed');
 
       if (fs.existsSync(`${__dirname}/files/latest.zip`)) {
-        let exctractedFolder = `${__dirname}/extracted`;
-
         fs.rmSync(`${__dirname}/extracted`, {
           recursive: true,
           force: true,
@@ -59,6 +66,7 @@ async function getDataFromUnity() {
       }
     });
   });
+  return metaData;
 }
 
 const createWindow = () => {
@@ -71,7 +79,7 @@ const createWindow = () => {
   });
 
   win.loadFile('index.html');
-  win.webContents.openDevTools();
+  // win.webContents.openDevTools();
 };
 
 app.whenReady().then(() => {
