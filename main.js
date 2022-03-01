@@ -21,7 +21,8 @@ async function getDataFromUnity() {
     }
   );
 
-  // console.log(request.data[0].build);
+  // console.log(request.data[0]);
+  // console.log(request.data[1]);
   // console.log(request.data[0].platform);
 
   const url = request.data[0].links.download_primary.href;
@@ -33,21 +34,25 @@ async function getDataFromUnity() {
     filePath.on('finish', () => {
       filePath.close();
       console.log('Download Completed');
+
       if (fs.existsSync(`${__dirname}/files/latest.zip`)) {
-        fs.rmSync(`${__dirname}/extracted_${request.data[0].build}`, {
+        let exctractedFolder = `${__dirname}/extracted`;
+
+        fs.rmSync(`${__dirname}/extracted`, {
           recursive: true,
           force: true,
         });
         const zip = new AdmZip(`${__dirname}/files/latest.zip`);
         zip.extractAllTo(
-          /*target path*/ `${__dirname}/extracted_${request.data[0].build}`,
+          /*target path*/ `${__dirname}/extracted`,
           /*overwrite*/ true
         );
         console.log('extracted');
+
         const shortcutsCreated = createDesktopShortcut({
           windows: {
-            filePath: `${__dirname}/extracted_${request.data[0].build}/win64.exe`,
-            name: 'God Machines',
+            filePath: `${__dirname}/extracted/win64.exe`,
+            name: `God Machines`,
           },
         });
         console.log('shortcut created');
