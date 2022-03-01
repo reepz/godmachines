@@ -1,12 +1,17 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const axios = require('axios');
-const util = require('util');
-const stream = require('stream');
 const fs = require('fs');
 const https = require('https');
+const AdmZip = require('adm-zip');
+const createDesktopShortcut = require('create-desktop-shortcuts');
 
-async function getZipFromUnityCloud() {
+async function getDataFromUnity() {
+  const dir = `${__dirname}/files`;
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir);
+  }
+
   const request = await axios.get(
     'https://build-api.cloud.unity3d.com/api/v1/orgs/859214/projects/fd8f1dd8-7e95-406d-8d66-acea7b4cb33c/buildtargets/_all/builds',
     {
@@ -15,18 +20,38 @@ async function getZipFromUnityCloud() {
       },
     }
   );
-  console.log(request.data[0].links.download_primary.href);
+
+  // console.log(request.data[0].build);
+  // console.log(request.data[0].platform);
 
   const url = request.data[0].links.download_primary.href;
 
   https.get(url, (res) => {
-    // Image will be stored at this path
-    const path = `${__dirname}/files/aaa.zip`;
+    const path = `${__dirname}/files/latest.zip`;
     const filePath = fs.createWriteStream(path);
     res.pipe(filePath);
     filePath.on('finish', () => {
       filePath.close();
       console.log('Download Completed');
+      if (fs.existsSync(`${__dirname}/files/latest.zip`)) {
+        fs.rmSync(`${__dirname}/extracted_${request.data[0].build}`, {
+          recursive: true,
+          force: true,
+        });
+        const zip = new AdmZip(`${__dirname}/files/latest.zip`);
+        zip.extractAllTo(
+          /*target path*/ `${__dirname}/extracted_${request.data[0].build}`,
+          /*overwrite*/ true
+        );
+        console.log('extracted');
+        const shortcutsCreated = createDesktopShortcut({
+          windows: {
+            filePath: `${__dirname}/extracted_${request.data[0].build}/win64.exe`,
+            name: 'God Machines',
+          },
+        });
+        console.log('shortcut created');
+      }
     });
   });
 }
@@ -45,7 +70,7 @@ const createWindow = () => {
 };
 
 app.whenReady().then(() => {
-  ipcMain.handle('get-build-from-unity', getZipFromUnityCloud);
+  ipcMain.handle('get-build-from-unity', getDataFromUnity);
   createWindow();
 
   app.on('activate', () => {

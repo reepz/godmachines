@@ -12,6 +12,8 @@
     "electron": "^17.1.0"
   },
   "dependencies": {
-    "axios": "^0.26.0"
+    "adm-zip": "^0.5.9",
+    "axios": "^0.26.0",
+    "create-desktop-shortcuts": "^1.6.0"
   }
 }
