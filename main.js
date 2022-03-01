@@ -4,6 +4,7 @@ const axios = require('axios');
 const util = require('util');
 const stream = require('stream');
 const fs = require('fs');
+const https = require('https');
 
 async function getZipFromUnityCloud() {
   const request = await axios.get(
@@ -15,6 +16,19 @@ async function getZipFromUnityCloud() {
     }
   );
   console.log(request.data[0].links.download_primary.href);
+
+  const url = request.data[0].links.download_primary.href;
+
+  https.get(url, (res) => {
+    // Image will be stored at this path
+    const path = `${__dirname}/files/aaa.zip`;
+    const filePath = fs.createWriteStream(path);
+    res.pipe(filePath);
+    filePath.on('finish', () => {
+      filePath.close();
+      console.log('Download Completed');
+    });
+  });
 }
 
 const createWindow = () => {
