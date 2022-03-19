@@ -37,7 +37,8 @@ async function deployPackage() {
     properties: ['openDirectory'],
   });
   if (canceled) {
-    return;
+    metaData.installationPath = '';
+    return metaData;
   } else {
     metaData.installationPath = `${filePaths[0]}\\God Machines`;
 
@@ -112,7 +113,7 @@ const createWindow = () => {
   });
 
   win.loadFile('index.html');
-  win.webContents.openDevTools();
+  // win.webContents.openDevTools();
 };
 
 app.whenReady().then(() => {
