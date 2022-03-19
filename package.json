@@ -14,6 +14,7 @@
   "dependencies": {
     "adm-zip": "^0.5.9",
     "axios": "^0.26.0",
-    "create-desktop-shortcuts": "^1.6.0"
+    "create-desktop-shortcuts": "^1.6.0",
+    "promise-loading-spinner": "^3.0.0"
   }
 }

@@ -447,6 +447,11 @@ progress@^2.0.3:
   resolved "https://registry.yarnpkg.com/progress/-/progress-2.0.3.tgz#7e8cf8d8f5b8f239c1bc68beb4eb78567d572ef8"
   integrity sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==
 
+promise-loading-spinner@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/promise-loading-spinner/-/promise-loading-spinner-3.0.0.tgz#93491ec1e3c95703b75cfc9cc8d7b70f63fe7302"
+  integrity sha512-JndTrJwnHafQk9Arbv7IIOirOgtVEoDlBrnpbjQ8MYS9aEWBbm1M8CX3jO3fZzv3v2pVL6HsTen+0X/+Zrkheg==
+
 proto-list@~1.2.1:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/proto-list/-/proto-list-1.2.4.tgz#212d5bfe1318306a420f6402b8e26ff39647a849"

@@ -1,10 +1,15 @@
 p {
-  color: black;
+  color: white;
   font-weight: bold;
 }
 
 span {
   font-weight: normal;
+}
+
+body {
+  color: white;
+  background-color: black;
 }
 
 *,

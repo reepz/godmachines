@@ -2,6 +2,7 @@ const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('electronAPI', {
   getLatestBuild: () => ipcRenderer.invoke('get-build-from-unity'),
+  getDataFromUnity: () => ipcRenderer.invoke('get-package-info'),
 });
 
 // window.addEventListener('DOMContentLoaded', () => {
@@ -10,7 +11,9 @@ contextBridge.exposeInMainWorld('electronAPI', {
 //     if (element) element.innerText = text;
 //   };
 
-//   for (const dependency of ['chrome', 'node', 'electron']) {
-//     replaceText(`${dependency}-version`, process.versions[dependency]);
-//   }
+// const instalButton = document.getElementById('install-button');
+//   instalButton.addEventListener(
+//     'click',
+//     replaceText('install-button', 'INSTALLING...')
+//   );
 // });
